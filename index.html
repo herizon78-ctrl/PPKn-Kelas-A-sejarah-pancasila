@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Sejarah Lahirnya Pancasila - MPI Pendidikan Pancasila SMP</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        merah: '#DC2626',
+                        merahTua: '#991B1B',
+                        emas: '#F59E0B',
+                        emasTerang: '#FBBF24',
+                        biruNusantara: '#1E3A8A',
+                        biruMuda: '#3B82F6',
+                        kremBg: '#FEF3C7',
+                        hitamTua: '#111827'
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            user-select: none;
+        }
+        h1, h2, h3, h4, .font-title {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+        /* Animation Utility */
+        .animate-bounce-slow {
+            animation: bounce 3s infinite;
+        }
+        .pulse-gold {
+            box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            animation: pulse-gold-anim 2s infinite;
+        }
+        @keyframes pulse-gold-anim {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+        /* Custom Certificate Print Style */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-certificate, #printable-certificate * {
+                visibility: visible;
+            }
+            #printable-certificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none;
+                border: 8px solid #F59E0B;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="bg-biruNusantara text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('halaman-peta')">
+                <div class="bg-merah p-2 rounded-lg text-white shadow">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base md:text-lg tracking-wide leading-tight text-white">PETUALANGAN PANCASILA</h1>
+                    <p class="text-xs text-amber-300 font-medium hidden sm:block">Pendidikan Pancasila SMP Kelas VII</p>
+                </div>
+            </div>
+
+            <!-- Stats & Controls -->
+            <div class="flex items-center gap-3">
+                <!-- User Info Badge -->
+                <div id="user-badge" class="hidden sm:flex items-center gap-2 bg-blue-900/60 px-3 py-1.5 rounded-full border border-blue-400/30 text-xs">
+                    <i class="fa-solid fa-user-ninja text-amber-400"></i>
+                    <span id="nav-user-name" class="font-semibold text-slate-100">Penjelajah</span>
+                </div>
+
+                <!-- Progress Pill -->
+                <div id="progress-badge" class="hidden md:flex items-center gap-2 bg-amber-500/20 px-3 py-1.5 rounded-full border border-amber-400/40 text-xs text-amber-200">
+                    <i class="fa-solid fa-star text-amber-400"></i>
+                    <span>Misi: <strong id="nav-progress-text">0/6</strong></span>
+                </div>
+
+                <!-- Audio BGM Toggle -->
+                <button id="bgm-toggle" onclick="toggleAudio()" class="w-10 h-10 rounded-full bg-blue-800 hover:bg-blue-700 text-amber-300 flex items-center justify-center transition shadow border border-blue-600/50" title="Suara Latar">
+                    <i id="bgm-icon" class="fa-solid fa-volume-xmark"></i>
+                </button>
+
+                <!-- Menu Reset Progress -->
+                <button onclick="confirmReset()" class="w-10 h-10 rounded-full bg-red-900/40 hover:bg-red-800 text-red-300 flex items-center justify-center transition border border-red-500/30" title="Reset Progres">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Progress Bar Indicator -->
+        <div class="w-full bg-blue-950 h-1.5">
+            <div id="global-progress-bar" class="bg-gradient-to-r from-amber-400 to-merah h-1.5 w-0 transition-all duration-500"></div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER (SPA Paging) -->
+    <main id="app-container" class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+        
+        <!-- ================= HALAMAN 1: PEMBUKA ================= -->
+        <section id="halaman-pembuka" class="min-h-[80vh] flex flex-col justify-center items-center text-center py-6">
+            <div class="max-w-3xl bg-white p-6 md:p-10 rounded-3xl shadow-xl border border-slate-200 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-500/10 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl"></div>
+
+                <!-- Lambang Garuda Visual -->
+                <div class="w-28 h-28 mx-auto mb-4 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full flex items-center justify-center p-3 border-4 border-amber-400 shadow-md animate-bounce-slow">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow">
+                        <circle cx="50" cy="50" r="45" fill="#F59E0B" />
+                        <path d="M50 15 L60 35 L80 35 L65 48 L70 70 L50 55 L30 70 L35 48 L20 35 L40 35 Z" fill="#DC2626" />
+                        <circle cx="50" cy="45" r="12" fill="#FFFFFF" />
+                        <path d="M50 37 L53 43 L59 43 L54 47 L56 53 L50 49 L44 53 L46 47 L41 43 L47 43 Z" fill="#F59E0B" />
+                    </svg>
+                </div>
+
+                <span class="inline-block px-4 py-1.5 bg-red-100 text-merah font-bold rounded-full text-xs md:text-sm tracking-wider uppercase mb-3 border border-red-200">
+                    Media Pembelajaran Interaktif SMP Kelas VII
+                </span>
+                
+                <h1 class="text-3xl md:text-5xl font-black text-slate-800 tracking-tight leading-tight mb-4">
+                    PETUALANGAN SEJARAH <br/>
+                    <span class="bg-gradient-to-r from-merah via-amber-500 to-biruNusantara bg-clip-text text-transparent">LAUNCHING PANCASILA</span>
+                </h1>
+
+                <p class="text-slate-600 text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
+                    Selamat datang, Penjelajah Muda! Bergabunglah dalam perjalanan waktu interaktif untuk mengungkap kisah keberanian, gagasan besar, dan nilai musyawarah para pendiri bangsa.
+                </p>
+
+                <!-- Form Input Nama -->
+                <div class="max-w-md mx-auto space-y-4 mb-6">
+                    <div class="text-left">
+                        <label for="input-nama" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Nama Penjelajah:</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-user-astronaut"></i>
+                            </span>
+                            <input type="text" id="input-nama" placeholder="Masukkan nama lengkapmu..." class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-slate-300 focus:border-amber-500 focus:ring focus:ring-amber-200 text-slate-800 font-semibold outline-none transition">
+                        </div>
+                    </div>
+
+                    <button onclick="mulaiPetualangan()" class="w-full py-4 bg-gradient-to-r from-merah to-amber-500 hover:from-merahTua hover:to-amber-600 text-white font-extrabold text-lg rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center justify-center gap-3 group pulse-gold">
+                        <span>MULAI PETUALANGAN</span>
+                        <i class="fa-solid fa-compass text-amber-300 group-hover:rotate-45 transition duration-300"></i>
+                    </button>
+                </div>
+
+                <!-- Standard & Competence Preview -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-left border-t border-slate-100 pt-6">
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 text-xs">
+                        <div class="font-bold text-slate-700"><i class="fa-solid fa-graduation-cap text-blue-600 mr-1"></i> Fase D</div>
+                        <div class="text-slate-500">Kelas VII SMP</div>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 text-xs">
+                        <div class="font-bold text-slate-700"><i class="fa-solid fa-book-bookmark text-amber-600 mr-1"></i> Mapel</div>
+                        <div class="text-slate-500">Pendidikan Pancasila</div>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 text-xs">
+                        <div class="font-bold text-slate-700"><i class="fa-solid fa-flag text-red-600 mr-1"></i> 6 Misi Utama</div>
+                        <div class="text-slate-500">BPUPKI s.d PPKI</div>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 text-xs">
+                        <div class="font-bold text-slate-700"><i class="fa-solid fa-award text-emerald-600 mr-1"></i> Output</div>
+                        <div class="text-slate-500">Sertifikat Hasil</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 2: PETA PETUALANGAN ================= -->
+        <section id="halaman-peta" class="hidden space-y-6">
+            <!-- Header Peta -->
+            <div class="bg-gradient-to-r from-biruNusantara to-blue-900 text-white p-6 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-center gap-4 border border-blue-700/50">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-amber-400"></i> Peta Misi Sejarah
+                    </h2>
+                    <p class="text-blue-200 text-sm mt-1">Pilih lokasi misi secara berurutan untuk mempelajari sejarah dan menyelesaikan tantangan!</p>
+                </div>
+                <div class="bg-blue-950/70 px-5 py-3 rounded-2xl border border-blue-400/30 flex items-center gap-4">
+                    <div class="text-center">
+                        <span class="block text-xs text-blue-300 font-semibold uppercase">Total Progres</span>
+                        <span id="map-progress-percent" class="text-xl font-black text-amber-400">0%</span>
+                    </div>
+                    <div class="w-px h-8 bg-blue-800"></div>
+                    <button onclick="navigate('halaman-evaluasi')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Evaluasi Akhir</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid Peta Misi -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="misi-cards-container">
+                <!-- Cards Javascript Injected Here -->
+            </div>
+
+            <!-- Quick Action Bottom Bar -->
+            <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 text-amber-900 text-sm">
+                    <i class="fa-solid fa-lightbulb text-amber-600 text-xl"></i>
+                    <span>Selesaikan semua 6 misi untuk membuka Evaluasi Akhir HOTS dan mengunduh Sertifikat Digital!</span>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="navigate('halaman-tokoh')" class="flex-1 sm:flex-none px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-users text-blue-600"></i> Galeri Tokoh
+                    </button>
+                    <button onclick="navigate('halaman-game')" class="flex-1 sm:flex-none px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-gamepad"></i> Mini Game
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 3: DETAIL MISI / EKSPLORASI MATERI ================= -->
+        <section id="halaman-detail-misi" class="hidden space-y-6">
+            <!-- Header Misi Navigation -->
+            <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow border border-slate-200">
+                <button onclick="navigate('halaman-peta')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Peta
+                </button>
+                <span id="misi-step-badge" class="px-3 py-1 bg-amber-100 text-amber-800 font-bold text-xs rounded-full border border-amber-300">
+                    Misi 1 dari 6
+                </span>
+            </div>
+
+            <!-- Main Mission Card -->
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                <!-- Hero Header -->
+                <div id="misi-hero-bg" class="bg-gradient-to-r from-biruNusantara to-blue-800 text-white p-6 md:p-8">
+                    <div class="flex items-center gap-3 text-amber-300 text-xs font-bold uppercase tracking-widest mb-2">
+                        <i class="fa-solid fa-compass"></i> Eksplorasi Sejarah
+                    </div>
+                    <h2 id="misi-judul" class="text-2xl md:text-4xl font-extrabold mb-3">Judul Misi Sejarah</h2>
+                    <p id="misi-subjudul" class="text-blue-100 text-sm md:text-base max-w-3xl leading-relaxed">Subjudul atau fokus bahasan misi ini.</p>
+                </div>
+
+                <!-- Dynamic Content Tabs -->
+                <div class="border-b border-slate-200 bg-slate-50 px-6 flex gap-4 overflow-x-auto">
+                    <button onclick="switchMisiTab('materi')" id="tab-btn-materi" class="py-3 px-4 font-bold text-sm border-b-2 border-merah text-merah flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-book-open"></i> Materi Sejarah
+                    </button>
+                    <button onclick="switchMisiTab('aktivitas')" id="tab-btn-aktivitas" class="py-3 px-4 font-bold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-puzzle-piece"></i> Aktivitas Interaktif
+                    </button>
+                    <button onclick="switchMisiTab('kuis')" id="tab-btn-kuis" class="py-3 px-4 font-bold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-circle-question"></i> Tantangan Misi
+                    </button>
+                </div>
+
+                <!-- Tab Content Body -->
+                <div class="p-6 md:p-8">
+                    <!-- TAB 1: MATERI SEJARAH -->
+                    <div id="tab-content-materi" class="space-y-6">
+                        <!-- Content HTML injected dynamically -->
+                    </div>
+
+                    <!-- TAB 2: AKTIVITAS INTERAKTIF -->
+                    <div id="tab-content-aktivitas" class="hidden space-y-6">
+                        <!-- Interactive Task Injected dynamically -->
+                    </div>
+
+                    <!-- TAB 3: KUIS MISI -->
+                    <div id="tab-content-kuis" class="hidden space-y-6">
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 text-amber-900 text-sm mb-4">
+                            <strong><i class="fa-solid fa-circle-info"></i> Petunjuk Kuis:</strong> Jawab pertanyaan di bawah ini dengan tepat untuk menyelesaikan Misi ini!
+                        </div>
+                        <div id="kuis-misi-container" class="space-y-4">
+                            <!-- Kuis Injected Here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Footer Action -->
+                <div class="bg-slate-50 p-4 md:p-6 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <span id="misi-status-icon" class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <div>
+                            <div class="text-xs text-slate-500 font-medium">Status Misi</div>
+                            <div id="misi-status-text" class="text-sm font-bold text-slate-700">Belum Selesai</div>
+                        </div>
+                    </div>
+
+                    <button id="btn-selesaikan-misi" onclick="tandaiMisiSelesai()" class="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-check-circle"></i> Selesaikan & Buka Misi Berikutnya
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 4: GALERI TOKOH SEJARAH ================= -->
+        <section id="halaman-tokoh" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-lg border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-users text-merah"></i> Tokoh Pendiri Bangsa
+                    </h2>
+                    <p class="text-slate-600 text-sm">Pelajari profil, gagasan, dan kontribusi penting para tokoh perumus Pancasila.</p>
+                </div>
+                <button onclick="navigate('halaman-peta')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Peta
+                </button>
+            </div>
+
+            <!-- Grid Tokoh -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tokoh-grid-container">
+                <!-- Tokoh cards injected via JS -->
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 5: MINI GAMES & TANTANGAN ================= -->
+        <section id="halaman-game" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-lg border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-amber-500"></i> Mini Game Sejarah
+                    </h2>
+                    <p class="text-slate-600 text-sm">Uji pemahamanmu melalui tantangan mengurutkan kronologi dan mencocokkan gagasan!</p>
+                </div>
+                <button onclick="navigate('halaman-peta')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Peta
+                </button>
+            </div>
+
+            <!-- Select Game Navigation Tabs -->
+            <div class="flex gap-3">
+                <button onclick="switchGameMode('kronologi')" id="game-tab-kronologi" class="px-4 py-2.5 bg-merah text-white font-bold text-sm rounded-xl shadow">
+                    1. Susun Kronologi Peristiwa
+                </button>
+                <button onclick="switchGameMode('tebak-tokoh')" id="game-tab-tebak" class="px-4 py-2.5 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 font-bold text-sm rounded-xl">
+                    2. Tebak Peran Tokoh
+                </button>
+            </div>
+
+            <!-- Game Arena Container -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-slate-200" id="game-arena">
+                <!-- Controlled by JS -->
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 6: EVALUASI PEMBELAJARAN (HOTS) ================= -->
+        <section id="halaman-evaluasi" class="hidden space-y-6">
+            <!-- Header Evaluasi -->
+            <div class="bg-gradient-to-r from-merahTua via-merah to-amber-600 text-white p-6 rounded-3xl shadow-xl border border-red-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <span class="px-3 py-1 bg-amber-400 text-red-950 text-xs font-black rounded-full uppercase tracking-wider mb-2 inline-block">
+                        Ujian Akhir Pembelajaran
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-black">Evaluasi Sejarah Lahirnya Pancasila</h2>
+                    <p class="text-red-100 text-sm mt-1">15 Soal Pilihan Ganda Berbasis HOTS (C4 - C6)</p>
+                </div>
+                <div class="bg-black/30 px-5 py-3 rounded-2xl border border-white/20 text-center">
+                    <div class="text-xs text-red-200 uppercase font-semibold">Total Soal</div>
+                    <div class="text-2xl font-black text-amber-300">15 Butir</div>
+                </div>
+            </div>
+
+            <!-- Quiz Box Active State -->
+            <div id="evaluasi-active-container" class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-slate-200 space-y-6">
+                <!-- Top Progress Question -->
+                <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                    <span id="eval-question-number" class="font-extrabold text-blue-900 text-base md:text-lg">Soal 1 dari 15</span>
+                    <span id="eval-cognitive-level" class="px-3 py-1 bg-blue-100 text-blue-800 font-bold text-xs rounded-full">Tingkat Kognitif: C4 Menganalisis</span>
+                </div>
+
+                <!-- Question Text -->
+                <div id="eval-stimulus-box" class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-slate-700 text-sm italic hidden">
+                    <!-- Context / Stimulus text -->
+                </div>
+                <h3 id="eval-question-text" class="text-lg md:text-xl font-bold text-slate-800 leading-snug">
+                    Teks pertanyaan evaluasi...
+                </h3>
+
+                <!-- Options -->
+                <div id="eval-options-container" class="space-y-3">
+                    <!-- Options buttons injected here -->
+                </div>
+
+                <!-- Bottom Controller -->
+                <div class="flex justify-between items-center border-t border-slate-200 pt-6">
+                    <button id="btn-eval-prev" onclick="navEvalQuestion(-1)" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-sm rounded-xl transition disabled:opacity-50">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+                    </button>
+                    <button id="btn-eval-next" onclick="navEvalQuestion(1)" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm rounded-xl shadow transition">
+                        Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                    <button id="btn-eval-submit" onclick="submitEvaluasi()" class="hidden px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl shadow transition">
+                        Selesaikan Ujian <i class="fa-solid fa-paper-plane ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 7: HASIL BELAJAR & SERTIFIKAT ================= -->
+        <section id="halaman-hasil" class="hidden space-y-8">
+            <!-- Summary Banner -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-slate-200 text-center relative overflow-hidden">
+                <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-3xl font-black mb-3 border-4 border-amber-300">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-black text-slate-800">Laporan Hasil Belajar</h2>
+                <p class="text-slate-600 text-sm mt-1">Selamat! Kamu telah menyelesaikan petualangan mempelajari sejarah lahirnya Pancasila.</p>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 text-left">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-500 block">Nama Penjelajah</span>
+                        <strong id="result-user-name" class="text-base text-blue-900 font-extrabold truncate block">Nama User</strong>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-500 block">Nilai Evaluasi HOTS</span>
+                        <strong id="result-eval-score" class="text-2xl text-merah font-black">0 / 100</strong>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-500 block">Jawaban Benar</span>
+                        <strong id="result-correct-percent" class="text-2xl text-emerald-600 font-black">0%</strong>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-semibold text-slate-500 block">Kategori Belajar</span>
+                        <strong id="result-category" class="text-sm text-amber-600 font-bold block">Sangat Baik</strong>
+                    </div>
+                </div>
+
+                <!-- Feedback Box -->
+                <div id="result-feedback-box" class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-2xl text-blue-900 text-sm text-left leading-relaxed">
+                    <!-- Dynamic Feedback -->
+                </div>
+
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                    <button onclick="window.print()" class="px-6 py-3 bg-biruNusantara hover:bg-blue-800 text-white font-bold text-sm rounded-xl shadow transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Cetak Sertifikat Digital
+                    </button>
+                    <button onclick="togglePembahasan()" class="px-6 py-3 bg-white border-2 border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-sm rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Lihat Pembahasan Soal
+                    </button>
+                    <button onclick="navigate('halaman-peta')" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-map"></i> Kembali ke Peta
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Answer Review Modal/Section -->
+            <div id="pembahasan-section" class="hidden bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-slate-200 space-y-6">
+                <h3 class="text-xl font-bold text-slate-800 border-b border-slate-200 pb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-book-bookmark text-merah"></i> Pembahasan Evaluasi HOTS
+                </h3>
+                <div id="pembahasan-container" class="space-y-4">
+                    <!-- Pembahasan Items Injected via JS -->
+                </div>
+            </div>
+
+            <!-- PRINTABLE DIGITAL CERTIFICATE -->
+            <div id="printable-certificate" class="bg-white p-8 md:p-12 rounded-3xl border-8 border-amber-400 shadow-2xl text-center relative overflow-hidden my-8 max-w-4xl mx-auto">
+                <div class="border-2 border-amber-600/40 p-6 md:p-10 rounded-2xl relative">
+                    <!-- Watermark Logo -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                        <i class="fa-solid fa-shield-halved text-[250px] text-amber-900"></i>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN</span>
+                        <span class="text-xs font-bold text-merah uppercase tracking-widest">FASE D • SMP KELAS VII</span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-4xl font-black text-blue-900 tracking-wider uppercase mb-1">SERTIFIKAT PENGHARGAAN</h1>
+                    <p class="text-amber-600 font-bold text-sm md:text-base tracking-widest uppercase mb-6">PETUALANGAN SEJARAH LAHIRNYA PANCASILA</p>
+
+                    <p class="text-slate-600 text-xs md:text-sm italic">Diberikan secara terhormat kepada Penjelajah Muda:</p>
+                    <h2 id="cert-user-name" class="text-2xl md:text-4xl font-black text-merah my-3 underline decoration-amber-400 decoration-2">NAMA PESERTA DIDIK</h2>
+                    
+                    <p class="text-slate-700 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed mb-6">
+                        Telah berhasil menyelesaikan seluruh 6 Misi Sejarah, menganalisis proses perumusan Pancasila, membandingkan gagasan para tokoh pendiri bangsa, dan lulus Evaluasi Pembelajaran HOTS dengan predikat:
+                    </p>
+                    <div id="cert-predicate" class="inline-block px-6 py-2 bg-amber-100 text-amber-900 font-black text-lg rounded-full border border-amber-300 mb-8 uppercase">
+                        SANGAT MEMUASKAN
+                    </div>
+
+                    <!-- Signatures -->
+                    <div class="grid grid-cols-2 gap-8 pt-6 border-t border-slate-200 text-xs text-slate-600">
+                        <div>
+                            <p class="font-bold text-slate-800">Media Pembelajaran Interaktif</p>
+                            <p>Pendidikan Pancasila VII</p>
+                            <div class="h-12 flex items-center justify-center font-serif italic text-slate-400 text-lg">[ Tanda Tangan Digital ]</div>
+                            <p class="font-semibold text-slate-700">Tim Pengembang MPI</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Tanggal Penyelesaian</p>
+                            <p id="cert-date">10 November 2026</p>
+                            <div class="h-12 flex items-center justify-center font-serif italic text-amber-600 font-bold">VERIFIED COMPLETE</div>
+                            <p class="font-semibold text-slate-700">Guru Pendidikan Pancasila</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-4 px-6 text-center text-xs border-t border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>© 2026 Petualangan Sejarah Lahirnya Pancasila • Media Pembelajaran Interaktif SMP Kelas VII</p>
+            <p class="text-slate-500">Dikembangkan dengan HTML5, Tailwind CSS & JS Murni</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        /* ==========================================================================
+           1. DATA MODEL & STATE MANAGEMENT
+           ========================================================================== */
+        
+        // App State
+        let appState = {
+            userName: "Penjelajah",
+            completedMissions: [], // Array index 0-5
+            missionScores: [0, 0, 0, 0, 0, 0],
+            evalAnswers: {}, // { questionIndex: chosenOptionIndex }
+            evalScore: 0,
+            isBgmOn: false
+        };
+
+        // Web Audio Synthesizer (BGM & SFX tanpa file eksternal)
+        let audioCtx = null;
+        let bgmInterval = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                } else if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(180, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch(e) {
+                console.log("Audio API Error:", e);
+            }
+        }
+
+        function toggleAudio() {
+            initAudio();
+            appState.isBgmOn = !appState.isBgmOn;
+            const btnIcon = document.getElementById('bgm-icon');
+            if (appState.isBgmOn) {
+                btnIcon.className = "fa-solid fa-volume-high text-amber-400";
+                startAmbientBgm();
+            } else {
+                btnIcon.className = "fa-solid fa-volume-xmark";
+                if (bgmInterval) clearInterval(bgmInterval);
+            }
+        }
+
+        function startAmbientBgm() {
+            if (bgmInterval) clearInterval(bgmInterval);
+            const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00]; // Pentatonic feel
+            bgmInterval = setInterval(() => {
+                if (!appState.isBgmOn) return;
+                try {
+                    const note = notes[Math.floor(Math.random() * notes.length)];
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 1.2);
+                } catch(e) {}
+            }, 1800);
+        }
+
+        /* ==========================================================================
+           2. DATA SEJARAH (6 MISI & TOKOH)
+           ========================================================================== */
+        
+        const dataMisi = [
+            {
+                id: 1,
+                judul: "Latar Belakang Pembentukan BPUPKI",
+                subjudul: "Mengapa Jepang membentuk badan perumus ini?",
+                deskripsi: "Pelajari janji kemerdekaan Jepang, kondisi Perang Dunia II, dan pembentukan Dokuritsu Zunbi Tyoosakai (BPUPKI) pada 1 Maret 1945.",
+                materiHTML: `
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200">
+                            <h4 class="font-bold text-blue-900 text-base mb-1"><i class="fa-solid fa-landmark text-amber-500 mr-2"></i> Konteks Sejarah (1944–1945)</h4>
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                Kedudukan Jepang dalam Perang Pasifik mulai terdesak oleh pasukan Sekutu pada akhir tahun 1944. Untuk menarik simpati rakyat Indonesia agar membantu Jepang, Perdana Menteri Kuniaki Koiso mengumumkan **Janji Kemerdekaan** di kemudian hari.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                                <h5 class="font-bold text-merah text-sm mb-2"><i class="fa-solid fa-calendar-day mr-1"></i> 1 Maret 1945</h5>
+                                <p class="text-xs text-slate-600">Pengumuman pembentukan *Dokuritsu Zunbi Tyoosakai* (Badan Penyelidik Usaha-Usaha Persiapan Kemerdekaan Indonesia / BPUPKI) oleh Jenderal Kumakichi Harada.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                                <h5 class="font-bold text-merah text-sm mb-2"><i class="fa-solid fa-calendar-day mr-1"></i> 29 April 1945</h5>
+                                <p class="text-xs text-slate-600">Pelantikan resmi pengurus BPUPKI. Dr. K.R.T. Radjiman Wedyodiningrat diangkat sebagai Ketua (Kaichoo).</p>
+                            </div>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                            <strong>Tujuan BPUPKI:</strong> Mempelajari dan menyelidiki hal-hal penting yang berhubungan dengan pembentukan negara Indonesia merdeka, terutama menyiapkan dasar negara dan undang-undang dasar.
+                        </div>
+                    </div>
+                `,
+                aktivitasHTML: `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Simulasi Penugasan Tokoh BPUPKI</h4>
+                        <p class="text-xs text-slate-600">Cocokkan struktur organisasi BPUPKI dengan benar:</p>
+                        <div id="sim-misi1-container" class="space-y-3">
+                            <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200 gap-2">
+                                <span class="text-xs font-bold text-slate-700">Dr. K.R.T. Radjiman Wedyodiningrat</span>
+                                <select id="target-misi1-1" class="text-xs p-2 rounded-lg border border-slate-300 font-medium">
+                                    <option value="">-- Pilih Jabatan --</option>
+                                    <option value="Ketua">Ketua BPUPKI</option>
+                                    <option value="WakilJepang">Wakil Ketua (Jepang)</option>
+                                    <option value="WakilIndo">Wakil Ketua (Indonesia)</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200 gap-2">
+                                <span class="text-xs font-bold text-slate-700">Ichibangase Yosio</span>
+                                <select id="target-misi1-2" class="text-xs p-2 rounded-lg border border-slate-300 font-medium">
+                                    <option value="">-- Pilih Jabatan --</option>
+                                    <option value="Ketua">Ketua BPUPKI</option>
+                                    <option value="WakilJepang">Wakil Ketua (Jepang)</option>
+                                    <option value="WakilIndo">Wakil Ketua (Indonesia)</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200 gap-2">
+                                <span class="text-xs font-bold text-slate-700">Raden Pandji Soeroso</span>
+                                <select id="target-misi1-3" class="text-xs p-2 rounded-lg border border-slate-300 font-medium">
+                                    <option value="">-- Pilih Jabatan --</option>
+                                    <option value="Ketua">Ketua BPUPKI</option>
+                                    <option value="WakilJepang">Wakil Ketua (Jepang)</option>
+                                    <option value="WakilIndo">Wakil Ketua (Indonesia)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="cekAktivitasMisi1()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition">Periksa Jawaban Aktivitas</button>
+                    </div>
+                `,
+                kuis: [
+                    {
+                        soal: "Apa alasan utama Jepang membentuk BPUPKI pada 1 Maret 1945?",
+                        opsi: [
+                            "Jepang benar-benar ingin memberi kemerdekaan tanpa syarat",
+                            "Jepang mulai terdesak dalam Perang Dunia II dan membutuhkan dukungan rakyat Indonesia",
+                            "Rakyat Indonesia mengancam akan melakukan perlawanan bersenjata",
+                            "Jepang telah kalah total dari pasukan Sekutu pada awal 1945"
+                        ],
+                        kunci: 1,
+                        pembahasan: "Jepang membentuk BPUPKI karena posisinya makin terdesak oleh Sekutu dalam Perang Pasifik, sehingga memerlukan bantuan dan simpati dari rakyat Indonesia."
+                    }
+                ]
+            },
+            {
+                id: 2,
+                judul: "Sidang Pertama BPUPKI (29 Mei–1 Juni 1945)",
+                subjudul: "Perumusan Fondasi Dasar Negara Indonesia Merdeka",
+                deskripsi: "Sidang berlangsung di Gedung Chuuoo Sangi-In (sekarang Gedung Pancasila). Ketua BPUPKI mengajukan pertanyaan kunci: Apa dasar negara Indonesia yang akan dibentuk?",
+                materiHTML: `
+                    <div class="space-y-4">
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                            <h4 class="font-bold text-amber-900 text-base mb-1"><i class="fa-solid fa-comments text-amber-600 mr-2"></i> Pertanyaan Utama Ketua BPUPKI</h4>
+                            <p class="text-sm text-slate-700 italic">
+                                "Indonesia Merdeka membutuhkan dasar negara (*Philosofische Grondslag*). Apakah fondasi utama yang akan kita gunakan untuk mendirikan gedung Indonesia Merdeka?"
+                            </p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                            <h5 class="font-bold text-slate-800 text-sm">Tiga Tokoh Utama Perumus Gagasan Dasar Negara:</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div class="bg-red-50 p-3 rounded-xl border border-red-200">
+                                    <div class="font-bold text-red-900 text-xs">Muhammad Yamin</div>
+                                    <div class="text-[11px] text-red-700">29 Mei 1945</div>
+                                </div>
+                                <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                                    <div class="font-bold text-amber-900 text-xs">Mr. Soepomo</div>
+                                    <div class="text-[11px] text-amber-700">31 Mei 1945</div>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                                    <div class="font-bold text-blue-900 text-xs">Ir. Soekarno</div>
+                                    <div class="text-[11px] text-blue-700">1 Juni 1945</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                aktivitasHTML: `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Simulasi Pidato Sidang Pertama BPUPKI</h4>
+                        <p class="text-xs text-slate-600">Pilih tokoh di bawah ini untuk mendengarkan kutipan pidatonya dalam sidang:</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="tampilPidato('yamin')" class="p-3 bg-red-100 hover:bg-red-200 text-red-900 font-bold text-xs rounded-xl border border-red-300">Muhammad Yamin</button>
+                            <button onclick="tampilPidato('soepomo')" class="p-3 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs rounded-xl border border-amber-300">Mr. Soepomo</button>
+                            <button onclick="tampilPidato('soekarno')" class="p-3 bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold text-xs rounded-xl border border-blue-300">Ir. Soekarno</button>
+                        </div>
+                        <div id="pidato-box" class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed min-h-[80px]">
+                            Klik salah satu tombol tokoh di atas untuk menampilkan simulasi gagasan pidatonya.
+                        </div>
+                    </div>
+                `,
+                kuis: [
+                    {
+                        soal: "Pertanyaan pokok apakah yang diajukan oleh Dr. Radjiman Wedyodiningrat pada pembukaan sidang pertama BPUPKI?",
+                        opsi: [
+                            "Siapa yang akan menjadi Presiden pertama Indonesia?",
+                            "Berapa jumlah wilayah dan provinsi negara Indonesia?",
+                            "Apakah dasar negara Indonesia yang akan didirikan?",
+                            "Kapan tanggal proklamasi kemerdekaan dilaksanakan?"
+                        ],
+                        kunci: 2,
+                        pembahasan: "Dr. Radjiman Wedyodiningrat meminta para anggota sidang untuk merumuskan dasar negara (Philosofische Grondslag) bagi Indonesia merdeka."
+                    }
+                ]
+            },
+            {
+                id: 3,
+                judul: "Gagasan Dasar Negara Tiga Tokoh",
+                subjudul: "Membandingkan Asas yang Disampaikan Yamin, Soepomo, dan Soekarno",
+                deskripsi: "Pelajari secara mendalam perbandingan 5 asas gagasan dasar negara dari Muhammad Yamin, Mr. Soepomo, dan Ir. Soekarno.",
+                materiHTML: `
+                    <div class="space-y-4">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left text-slate-700 border-collapse border border-slate-200">
+                                <thead class="bg-slate-100 text-slate-800 font-bold">
+                                    <tr>
+                                        <th class="p-2 border border-slate-200">Muhammad Yamin (29 Mei)</th>
+                                        <th class="p-2 border border-slate-200">Mr. Soepomo (31 Mei)</th>
+                                        <th class="p-2 border border-slate-200">Ir. Soekarno (1 Juni)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-2 border border-slate-200">1. Peri Kebangsaan<br>2. Peri Kemanusiaan<br>3. Peri Ketuhanan<br>4. Peri Kerakyatan<br>5. Kesejahteraan Rakyat</td>
+                                        <td class="p-2 border border-slate-200">1. Persatuan<br>2. Kekeluargaan<br>3. Keseimbangan Lahir Batin<br>4. Musyawarah<br>5. Keadilan Rakyat</td>
+                                        <td class="p-2 border border-slate-200">1. Kebangsaan Indonesia<br>2. Internasionalisme / Kemanusiaan<br>3. Mufakat / Demokrasi<br>4. Kesejahteraan Sosial<br>5. Ketuhanan yang Maha Esa</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 text-xs text-amber-900 leading-relaxed">
+                            <strong>Catatan Penting:</strong> Ir. Soekarno memperkenalkan istilah <strong>"Pancasila"</strong> pada tanggal 1 Juni 1945 atas saran ahli bahasa. Oleh karena itu, tanggal 1 Juni diperingati sebagai **Hari Lahir Pancasila**.
+                        </div>
+                    </div>
+                `,
+                aktivitasHTML: `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Aktivitas Pembanding Gagasan Tokoh</h4>
+                        <p class="text-xs text-slate-600">Tentukan tokoh pemilik gagasan dasar negara di bawah ini:</p>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                <span class="text-xs font-semibold">"Internasionalisme atau Peri Kemanusiaan"</span>
+                                <button onclick="cekGagasan(this, 'Soekarno')" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-500">Pilih Tokoh</button>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                <span class="text-xs font-semibold">"Paham Negara Integralistik & Kekeluargaan"</span>
+                                <button onclick="cekGagasan(this, 'Soepomo')" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-500">Pilih Tokoh</button>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                <span class="text-xs font-semibold">"Peri Kebangsaan & Kesejahteraan Rakyat"</span>
+                                <button onclick="cekGagasan(this, 'Yamin')" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-500">Pilih Tokoh</button>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                kuis: [
+                    {
+                        soal: "Mengapa tanggal 1 Juni diperingati sebagai Hari Lahir Pancasila?",
+                        opsi: [
+                            "Karena sidang BPUPKI dibubarkan pada tanggal tersebut",
+                            "Karena Ir. Soekarno pertama kali mengucapkan istilah Pancasila dalam pidatonya",
+                            "Karena Piagam Jakarta disahkan pada tanggal 1 Juni 1945",
+                            "Karena Muhammad Yamin menyerahkan teks tertulis kepada Ketua BPUPKI"
+                        ],
+                        kunci: 1,
+                        pembahasan: "Tanggal 1 Juni diperingati sebagai Hari Lahir Pancasila karena pada hari itulah Ir. Soekarno menyampaikan pidato yang mengusulkan 5 dasar negara dengan nama Pancasila."
+                    }
+                ]
+            },
+            {
+                id: 4,
+                judul: "Panitia Sembilan & Piagam Jakarta",
+                subjudul: "Jembatan Kompromi Antar Golongan (22 Juni 1945)",
+                deskripsi: "Pembentukan Panitia Sembilan untuk menyelaraskan gagasan dasar negara antara golongan Kebangsaan (Nasionalis) dan golongan Agama (Islam).",
+                materiHTML: `
+                    <div class="space-y-4">
+                        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 text-xs text-emerald-900 leading-relaxed">
+                            <h4 class="font-bold text-emerald-950 text-sm mb-1"><i class="fa-solid fa-users-gear text-emerald-600 mr-2"></i> Anggota Panitia Sembilan</h4>
+                            <p class="mb-2"><strong>Ketua:</strong> Ir. Soekarno | <strong>Wakil:</strong> Drs. Mohammad Hatta</p>
+                            <p><strong>Anggota:</strong> A.A. Maramis, Abikoesno Tjokrosoejoso, Abdulkahar Muzakir, H. Agus Salim, Mr. Soebardjo, K.H. Wachid Hasjim, Mr. Muhammad Yamin.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <h5 class="font-bold text-slate-800 text-sm mb-2">Piagam Jakarta (Jakarta Charter) - 22 Juni 1945</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Panitia Sembilan berhasil menyusun rumusan rancangan Pembukaan UUD. Pada Sila Pertama tercantum rumusan: <br/>
+                                <em class="font-semibold text-merah font-serif">"Ketuhanan dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya."</em>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                aktivitasHTML: `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Klasifikasi Anggota Panitia Sembilan</h4>
+                        <p class="text-xs text-slate-600">Tentukan asal keanggotaan Panitia Sembilan:</p>
+                        <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                                <div class="font-bold text-blue-900 mb-1">Golongan Kebangsaan (Nasionalis)</div>
+                                <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                    <li>Ir. Soekarno</li>
+                                    <li>Drs. Mohammad Hatta</li>
+                                    <li>A.A. Maramis</li>
+                                    <li>Mr. Achmad Soebardjo</li>
+                                    <li>Mr. Muhammad Yamin</li>
+                                </ul>
+                            </div>
+                            <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                                <div class="font-bold text-emerald-900 mb-1">Golongan Agama (Islam)</div>
+                                <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                    <li>K.H. Wachid Hasjim</li>
+                                    <li>H. Agus Salim</li>
+                                    <li>Abikoesno Tjokrosoejoso</li>
+                                    <li>Abdoel Kahar Moezakir</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                kuis: [
+                    {
+                        soal: "Apa signifikansi utama keberhasilan Panitia Sembilan menghasilkan Piagam Jakarta pada 22 Juni 1945?",
+                        opsi: [
+                            "Berhasil mengusir tentara Jepang dari Indonesia",
+                            "Menjadi wujud kompromi luhur antara golongan kebangsaan dan golongan agama",
+                            "Menjadikan Indonesia sebagai negara berdasar agama tertentu",
+                            "Menolak seluruh gagasan yang diajukan oleh Mr. Soepomo"
+                        ],
+                        kunci: 1,
+                        pembahasan: "Piagam Jakarta merupakan dokumen kompromi bersejarah yang menyatukan pandangan golongan kebangsaan dan golongan Islam demi persatuan nasional."
+                    }
+                ]
+            },
+            {
+                id: 5,
+                judul: "Sidang Kedua BPUPKI (10–17 Juli 1945)",
+                subjudul: "Pembahasan Rancangan UUD, Wilayah Negara, dan Bentuk Negara",
+                deskripsi: "BPUPKI menerima rancangan Piagam Jakarta sebagai Pembukaan UUD dan membentuk Panitia Perancang UUD yang diketuai Soekarno.",
+                materiHTML: `
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-check-double text-emerald-600 mr-2"></i> Keputusan Utama Sidang Kedua BPUPKI:</h4>
+                            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1.5 leading-relaxed">
+                                <li>Bentuk Negara Indonesia disepakati sebagai <strong>Republik</strong>.</li>
+                                <li>Wilayah Indonesia mencakup bekas wilayah Hindia Belanda ditambah Malaya, Borneo Utara, Papua, dan Timor.</li>
+                                <li>Menerima rancangan Piagam Jakarta sebagai naskah Pembukaan UUD.</li>
+                                <li>Membentuk Panitia Perancang UUD (diketuai Ir. Soekarno) dan Panitia Keuangan/Perekonomian (diketuai Moh. Hatta).</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                aktivitasHTML: `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 text-xs space-y-3">
+                        <h4 class="font-bold text-slate-800 text-sm">Refleksi Musyawarah BPUPKI</h4>
+                        <p class="text-slate-600">Nilai utama apakah yang paling menonjol dari jalannya Sidang Kedua BPUPKI?</p>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 font-semibold text-amber-900">
+                            Semangat kekeluargaan, saling menghargai perbedaan pendapat, dan mengutamakan kepentingan bangsa di atas kepentingan pribadi/golongan.
+                        </div>
+                    </div>
+                `,
+                kuis: [
+                    {
+                        soal: "Bentuk negara apakah yang disepakati oleh mayoritas anggota BPUPKI pada Sidang Kedua?",
+                        opsi: ["Kerajaan / Monarki", "Republik", "Federasi / Serikat", "Kekaisaran"],
+                        kunci: 1,
+                        pembahasan: "Melalui pemungutan suara pada Sidang Kedua BPUPKI, mayoritas anggota memilih bentuk negara Republik."
+                    }
+                ]
+            },
+            {
+                id: 6,
+                judul: "Penetapan Pancasila oleh PPKI (18 Agustus 1945)",
+                subjudul: "Pengesahan Pancasila sebagai Dasar Negara Resmi Republik Indonesia",
+                deskripsi: "Satu hari setelah Proklamasi Kemerdekaan, PPKI menggelar sidang bersejarah untuk menetapkan UUD 1945 dan Pancasila serta memilih Presiden dan Wakil Presiden.",
+                materiHTML: `
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-4 rounded-2xl border border-red-200 text-xs text-red-900 leading-relaxed">
+                            <h4 class="font-bold text-red-950 text-sm mb-1"><i class="fa-solid fa-heart text-merah mr-2"></i> Keberanian Pengorbanan demi Persatuan</h4>
+                            <p class="mb-2">
+                                Utusan dari Indonesia Timur (melalui perantara A.A. Maramis dan J. Latuharhary) mengusulkan keberatan terhadap 7 kata dalam Piagam Jakarta demi menjaga persatuan bangsa Indonesia yang beragam.
+                            </p>
+                            <p class="font-semibold">
+                                Moh. Hatta berdiskusi dengan para tokoh Islam (K.H. Wachid Hasjim, Ki Bagoes Hadikoesoemo, Kasman Singodimedjo, Teuku M. Hasan). Dengan jiwa besar, 7 kata dihapus dan diganti menjadi: <br/>
+                                <span class="text-base font-bold text-merahTua block mt-1">"Ketuhanan Yang Maha Esa"</span>
+                            </p>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 text-xs text-emerald-900">
+                            <strong>Hasil Sidang PPKI (18 Agustus 1945):</strong>
+                            <ol class="list-decimal list-inside mt-1 space-y-1">
+                                <li>Mengesahkan UUD 1945 (termasuk rumusan Pancasila dalam Pembukaan).</li>
+                                <li>Memilih Ir. Soekarno sebagai Presiden dan Drs. Mohammad Hatta sebagai Wakil Presiden.</li>
+                                <li>Membentuk Komite Nasional Indonesia Pusat (KNIP) untuk membantu tugas Presiden.</li>
+                            </ol>
+                        </div>
+                    </div>
+                `,
+                aktivitasHTML: `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-3 text-xs">
+                        <h4 class="font-bold text-slate-800 text-sm">Poin Perubahan Rumusan Sila Pertama</h4>
+                        <div class="p-3 bg-slate-100 rounded-xl border border-slate-300">
+                            <span class="text-red-700 font-bold block mb-1">Semula (Piagam Jakarta):</span>
+                            "Ketuhanan dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya."
+                        </div>
+                        <div class="p-3 bg-emerald-100 rounded-xl border border-emerald-300">
+                            <span class="text-emerald-800 font-bold block mb-1">Disahkan PPKI (18 Agustus 1945):</span>
+                            "Ketuhanan Yang Maha Esa."
+                        </div>
+                    </div>
+                `,
+                kuis: [
+                    {
+                        soal: "Mengapa para tokoh Islam dalam PPKI bersedia mengganti 7 kata pada Sila Pertama Piagam Jakarta?",
+                        opsi: [
+                            "Karena dipaksa oleh pihak tentara Jepang",
+                            "Demi menjaga persatuan dan keutuhan NKRI dari ancaman perpecahan",
+                            "Karena rumusan tersebut tidak disetujui oleh Ir. Soekarno",
+                            "Karena rapat PPKI tidak memenuhi kuorum pembicaraan"
+                        ],
+                        kunci: 1,
+                        pembahasan: "Para tokoh Islam dengan lapang dada dan jiwa besar menyetujui perubahan tersebut demi menjamin keutuhan dan persatuan bangsa Indonesia yang majemuk."
+                    }
+                ]
+            }
+        ];
+
+        // Galeri Tokoh Sejarah Data
+        const dataTokoh = [
+            {
+                nama: "Ir. Soekarno",
+                peran: "Anggota BPUPKI, Ketua Panitia Sembilan, Ketua PPKI, Presiden Pertama RI",
+                gagasan: "Mengusulkan istilah 'Pancasila' pada 1 Juni 1945 dengan 5 prinsip: Kebangsaan, Internasionalisme/Kemanusiaan, Mufakat/Demokrasi, Kesejahteraan Sosial, dan Ketuhanan yang Maha Esa.",
+                kontribusi: "Menggali nilai-nilai luhur bangsa Indonesia dan merumuskan dasar negara serta memimpin proses persiapan kemerdekaan.",
+                bg: "from-red-500 to-amber-600"
+            },
+            {
+                nama: "Drs. Mohammad Hatta",
+                peran: "Wakil Ketua Panitia Sembilan, Anggota BPUPKI & PPKI, Wakil Presiden Pertama RI",
+                gagasan: "Menekankan demokrasi ekonomi, kesejahteraan rakyat, dan memelopori kompromi penghapusan 7 kata Piagam Jakarta demi persatuan.",
+                kontribusi: "Memimpin perundingan sensitif perubahan Sila Pertama demi keutuhan NKRI yang majemuk.",
+                bg: "from-blue-600 to-indigo-800"
+            },
+            {
+                nama: "Mr. Muhammad Yamin",
+                peran: "Anggota BPUPKI & Panitia Sembilan",
+                gagasan: "Mengusulkan 5 asas dasar negara pada 29 Mei 1945 (Peri Kebangsaan, Peri Kemanusiaan, Peri Ketuhanan, Peri Kerakyatan, Kesejahteraan Rakyat).",
+                kontribusi: "Sastrawan dan sejarawan yang memberikan kontribusi konsep kebangsaan dan rancangan naskah hukum dasar.",
+                bg: "from-emerald-600 to-teal-800"
+            },
+            {
+                nama: "Mr. Soepomo",
+                peran: "Anggota BPUPKI & Ketua Panitia Kecil Perancang UUD",
+                gagasan: "Mengusulkan Teori Negara Integralistik (Kekeluargaan) pada 31 Mei 1945.",
+                kontribusi: "Ahli hukum utama yang merancang struktur dan pasal-pasal Undang-Undang Dasar 1945.",
+                bg: "from-amber-600 to-orange-700"
+            },
+            {
+                nama: "Dr. K.R.T. Radjiman Wedyodiningrat",
+                peran: "Ketua BPUPKI",
+                gagasan: "Meminta para anggota sidang merumuskan dasar negara (*Philosofische Grondslag*).",
+                kontribusi: "Memimpin jalannya sidang BPUPKI dengan bijaksana, demokratis, dan teratur.",
+                bg: "from-purple-600 to-slate-800"
+            },
+            {
+                nama: "K.H. Wachid Hasjim",
+                peran: "Anggota BPUPKI, Panitia Sembilan, & PPKI (Tokoh Islam NU)",
+                gagasan: "Memperjuangkan nilai-nilai keagamaan berpadu dengan kebangsaan.",
+                kontribusi: "Menjadi jembatan kompromi antara pemikiran Islam dan kebangsaan untuk kejayaan Indonesia.",
+                bg: "from-emerald-700 to-green-900"
+            }
+        ];
+
+        /* ==========================================================================
+           3. DATA EVALUASI PEMBELAJARAN HOTS (15 SOAL C4-C6)
+           ========================================================================== */
+        
+        const dataEvaluasiHOTS = [
+            {
+                stimulus: "Jepang mempropagandakan pembentukan BPUPKI di tengah situasi perang Pasifik yang makin terdesak oleh pasukan Sekutu.",
+                soal: "Berdasarkan stimulus di atas, analisis manakah yang paling tepat mengenai hubungan antara kondisi politik Jepang dan pembentukan BPUPKI?",
+                opsi: [
+                    "BPUPKI dibentuk murni atas kebaikan hati kekaisaran Jepang kepada Indonesia",
+                    "Pembentukan BPUPKI merupakan strategi taktis Jepang untuk mendapatkan bantuan tenaga dan sumber daya rakyat Indonesia",
+                    "Jepang dipaksa oleh Sekutu untuk memerdekakan Indonesia melalui badan BPUPKI",
+                    "Rakyat Indonesia mengambil alih kekuasaan Jepang secara paksa pada 1 Maret 1945"
+                ],
+                kunci: 1,
+                level: "C4 (Menganalisis)",
+                pembahasan: "Pembentukan BPUPKI oleh Jepang bersifat taktis politis agar rakyat Indonesia mau membantu Jepang yang sedang terdesak dalam Perang Pasifik."
+            },
+            {
+                stimulus: "Dr. Radjiman Wedyodiningrat meminta anggota BPUPKI merumuskan dasar negara sebelum Indonesia merdeka.",
+                soal: "Mengapa keberadaan 'dasar negara' sangat vital bagi sebuah negara baru yang akan didirikan?",
+                opsi: [
+                    "Agar negara baru tersebut memiliki syarat formal untuk meminjam bantuan keuangan internasional",
+                    "Dasar negara berfungsi sebagai fondasi pandangan hidup, pedoman bernegara, dan pemersatu seluruh warga negara",
+                    "Agar para pemimpin negara dapat membuat undang-undang tanpa memedulikan rakyat",
+                    "Sebagai bentuk formalitas penyerahan kekuasaan dari penjajah"
+                ],
+                kunci: 1,
+                level: "C4 (Menganalisis)",
+                pembahasan: "Dasar negara (Philosofische Grondslag) menjadi fondasi utama tempat berdirinya gedung negara merdeka, yang memuat pandangan hidup dan tujuan bersama."
+            },
+            {
+                stimulus: "Perhatikan gagasan: (1) Peri Kebangsaan, (2) Persatuan, (3) Kebangsaan Indonesia, (4) Kekeluargaan, (5) Internasionalisme/Kemanusiaan.",
+                soal: "Manakah di antara asas di atas yang merupakan bagian dari gagasan Ir. Soekarno pada tanggal 1 Juni 1945?",
+                opsi: [
+                    "(1) dan (2)",
+                    "(2) dan (4)",
+                    "(3) dan (5)",
+                    "(1) dan (4)"
+                ],
+                kunci: 2,
+                level: "C4 (Menganalisis)",
+                pembahasan: "Gagasan Ir. Soekarno pada 1 Juni mencakup Kebangsaan Indonesia (3) dan Internasionalisme/Kemanusiaan (5)."
+            },
+            {
+                stimulus: "Mr. Soepomo mengajukan Teori Negara Integralistik (Kekeluargaan) yang menekankan persatuan antara pemerintah dan rakyat.",
+                soal: "Bagaimana teori tersebut tercermin dalam konsep kehidupan bermasyarakat Indonesia saat ini?",
+                opsi: [
+                    "Mementingkan hak individu di atas kepentingan kebersamaan",
+                    "Mengedepankan nilai gotong royong dan musyawarah dalam menyelesaikan masalah bersama",
+                    "Menyerahkan seluruh keputusan hanya kepada pimpinan tertinggi",
+                    "Membagi masyarakat ke dalam kelompok-kelompok yang saling bersaing"
+                ],
+                kunci: 1,
+                level: "C4 (Menganalisis)",
+                pembahasan: "Negara integralistik/kekeluargaan Soepomo menekankan gotong royong, kebersamaan, dan kepedulian antarwarga."
+            },
+            {
+                stimulus: "Dalam sidang pertama BPUPKI, terdapat perbedaan pendapat mengenai dasar negara antara golongan kebangsaan dan golongan agama.",
+                soal: "Langkah terbaik yang dilakukan oleh para pendiri bangsa untuk menjembatani perbedaan tersebut adalah...",
+                opsi: [
+                    "Membubarkan BPUPKI dan menghentikan proses persiapan kemerdekaan",
+                    "Membentuk Panitia Sembilan untuk memusyawarahkan kompromi bersama",
+                    "Melakukan pemungutan suara paksa tanpa mendengarkan pendapat minoritas",
+                    "Menyerahkan keputusan sepenuhnya kepada pemerintah tentara Jepang"
+                ],
+                kunci: 1,
+                level: "C5 (Mengevaluasi)",
+                pembahasan: "Pembentukan Panitia Sembilan adalah langkah bijaksana (kompromi) untuk memusyawarahkan titik temu antargolongan."
+            },
+            {
+                stimulus: "Piagam Jakarta yang dirumuskan pada 22 Juni 1945 memuat klausa: '...dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya.'",
+                soal: "Evaluasi utama terhadap klausa di atas jika diterapkan dalam konteks keberagaman Indonesia saat ini adalah...",
+                opsi: [
+                    "Sangat cocok karena mayoritas penduduk Indonesia beragama Islam",
+                    "Berpotensi menimbulkan rasa ketidakadilan dan ancaman integrasi bagi warga non-Muslim di wilayah timur",
+                    "Tidak berpengaruh apa pun terhadap persatuan dan kesatuan nasional",
+                    "Pasti akan disetujui oleh seluruh rakyat tanpa terkecuali"
+                ],
+                kunci: 1,
+                level: "C5 (Mengevaluasi)",
+                pembahasan: "Klausa tersebut berpotensi mengganggu keutuhan persatuan nasional bagi saudara-saudara non-Muslim, sehingga perlu penyesuaian."
+            },
+            {
+                stimulus: "Pada 18 Agustus 1945, tokoh-tokoh Islam sepakat mengganti 7 kata Piagam Jakarta menjadi 'Ketuhanan Yang Maha Esa'.",
+                soal: "Karakter dan nilai luhur manakah yang paling menonjol diperlihatkan oleh para tokoh Islam tersebut?",
+                opsi: [
+                    "Kelemahan dalam mempertahankan pendirian",
+                    "Jiwa besar, toleransi tinggi, dan mengutamakan keutuhan persatuan bangsa",
+                    "Kepatuhan terhadap dorongan negara luar",
+                    "Keinginan untuk mempercepat jalannya sidang PPKI"
+                ],
+                kunci: 1,
+                level: "C5 (Mengevaluasi)",
+                pembahasan: "Kesediaan mengganti rumusan tersebut mencerminkan sikap kebesaran jiwa, kepemimpinan luhur, toleransi, dan rasa cinta tanah air di atas kepentingan golongan."
+            },
+            {
+                stimulus: "Pancasila dirumuskan melalui dinamika perdebatan yang sengit namun tetap menjunjung tinggi rasa hormat dan kesopanan.",
+                soal: "Prinsip demokrasi manakah yang dapat kita teladani dalam kehidupan sehari-hari di sekolah?",
+                opsi: [
+                    "Memaksa teman untuk menerima pendapat kita saat berdiskusi kelompok",
+                    "Marah dan keluar dari ruangan jika pendapat kita tidak diterima",
+                    "Menghargai perbedaan pendapat dalam musyawarah kelas dan menerima keputusan bersama",
+                    "Menolak melakukan musyawarah karena menyita waktu"
+                ],
+                kunci: 2,
+                level: "C6 (Menciptakan / Mengaplikasikan)",
+                pembahasan: "Teladan musyawarah pendiri bangsa diimplementasikan dengan saling menghargai pendapat dan melaksanakan keputusan bersama dengan ikhlas."
+            },
+            {
+                stimulus: "Seorang siswa berpendapat bahwa sejarah lahirnya Pancasila tidak perlu dipelajari lagi karena Indonesia sudah merdeka.",
+                soal: "Bagaimana tanggapan dan argumen kritis kamu untuk membantah pendapat siswa tersebut?",
+                opsi: [
+                    "Setuju, karena pelajaran sejarah hanya menambah beban hafalan tanggal",
+                    "Tidak setuju, karena mempelajari sejarah Pancasila membentuk pemahaman mendalam tentang nilai persatuan dan identitas bangsa",
+                    "Setuju, karena Pancasila sudah digantikan oleh aturan hukum modern",
+                    "Tidak setuju, hanya jika pelajaran sejarah masuk dalam ujian nasional"
+                ],
+                kunci: 1,
+                level: "C5 (Mengevaluasi)",
+                pembahasan: "Mempelajari sejarah Pancasila sangat penting agar generasi muda memahami akar fondasi kebangsaan, nilai persatuan, dan kompromi luhur bangsa."
+            },
+            {
+                stimulus: "Ir. Soekarno menawarkan alternatif rumusan dari 5 Sila menjadi Trisila, dan dari Trisila menjadi Ekasila (Gotong Royong).",
+                soal: "Apa makna filosofis utama di balik konsep 'Ekasila' yang disampaikan oleh Ir. Soekarno?",
+                opsi: [
+                    "Bahwa Indonesia tidak memerlukan dasar negara yang rumit",
+                    "Inti dan jiwa utama dari seluruh nilai Pancasila adalah semangat gotong royong dan kerja sama",
+                    "Gotong royong hanya berlaku bagi masyarakat di pedesaan",
+                    "Penolakan terhadap nilai-nilai ketuhanan dan kemanusiaan"
+                ],
+                kunci: 1,
+                level: "C4 (Menganalisis)",
+                pembahasan: "Ekasila (Gotong Royong) menekankan bahwa seluruh sila dalam Pancasila bermuara pada semangat saling membantu dan kebersamaan."
+            },
+            {
+                stimulus: "Perubahan konstelasi politik setelah Jepang menyerah tanpa syarat kepada Sekutu pada 14 Agustus 1945 memicu percepatan langkah kemerdekaan.",
+                soal: "Apa dampak langsung perubahan tersebut terhadap status BPUPKI dan pembentukan PPKI?",
+                opsi: [
+                    "BPUPKI dibubarkan dan dibentuk PPKI sebagai badan yang murni mempersiapkan kemerdekaan Indonesia",
+                    "BPUPKI melanjutkan sidang hingga bulan September 1945",
+                    "Jepang melarang seluruh kegiatan persiapan kemerdekaan oleh PPKI",
+                    "PPKI membatalkan seluruh rancangan UUD yang dibuat BPUPKI"
+                ],
+                kunci: 0,
+                level: "C4 (Menganalisis)",
+                pembahasan: "BPUPKI dibubarkan pada 7 Agustus 1945 karena dianggap telah menyelesaikan tugasnya, lalu dibentuk PPKI (*Dokuritsu Zunbi Iinkai*)."
+            },
+            {
+                stimulus: "Rumusan Pancasila yang sah dan mengikat secara hukum tata negara Indonesia adalah rumusan yang tercantum dalam...",
+                soal: "Identifikasi dokumen resmi perundang-undangan di bawah ini!",
+                opsi: [
+                    "Pidato Mr. Muhammad Yamin tanggal 29 Mei 1945",
+                    "Naskah Asli Piagam Jakarta tanggal 22 Juni 1945",
+                    "Pembukaan UUD 1945 Alinea IV yang disahkan PPKI tanggal 18 Agustus 1945",
+                    "Dekrit Presiden 5 Juli 1959"
+                ],
+                kunci: 2,
+                level: "C4 (Menganalisis)",
+                pembahasan: "Rumusan Pancasila yang sah secara hukum bernegara adalah yang tercantum dalam Pembukaan UUD 1945 Alinea IV yang disahkan PPKI."
+            },
+            {
+                stimulus: "Di kelas VII SMP, terjadi perdebatan dalam menentukan lokasi tujuan karyawisata.",
+                soal: "Berdasarkan nilai perumusan Pancasila, tindakan apakah yang paling mencerminkan penerapan Sila Keempat?",
+                opsi: [
+                    "Ketua kelas mengambil keputusan sendiri agar cepat selesai",
+                    "Mengadakan voting/musyawarah kelas secara terbuka, mendengarkan semua masukan, dan menerima hasilnya bersama",
+                    "Membatalkan rencana karyawisata karena ada yang berbeda pendapat",
+                    "Kelompok terbesar mengancam kelompok kecil jika tidak ikut pilihan mereka"
+                ],
+                kunci: 1,
+                level: "C6 (Menciptakan / Mengaplikasikan)",
+                pembahasan: "Penerapan Sila Keempat adalah melakukan musyawarah dengan iktikad baik dan menghormati keputusan bersama."
+            },
+            {
+                stimulus: "Bandingkan peran BPUPKI dan PPKI dalam sejarah perumusan dasar negara dan proklamasi!",
+                soal: "Pernyataan perbandingan di bawah ini yang paling tepat adalah...",
+                opsi: [
+                    "BPUPKI bertugas mengesahkan UUD, sedangkan PPKI bertugas merancang teks dasar negara",
+                    "BPUPKI bertugas merancang dan menyelidiki persiapan kemerdekaan, sedangkan PPKI bertugas mengesahkan dasar negara dan UUD serta mempersiapkan tata pemerintahan",
+                    "Kedua lembaga tersebut memiliki anggota dan tugas yang sama persis tanpa perbedaan",
+                    "PPKI dibentuk oleh Sekutu, sedangkan BPUPKI dibentuk oleh Jepang"
+                ],
+                kunci: 1,
+                level: "C4 (Menganalisis)",
+                pembahasan: "BPUPKI bertugas menyelidiki/merancang, sedangkan PPKI bertugas menetapkan/mengesahkan peranti bernegara setelah proklamasi."
+            },
+            {
+                stimulus: "Bayangkan kamu diminta membuat ikrar siswa untuk menjaga kelestarian nilai Pancasila di era digital saat ini.",
+                soal: "Rumusan komitmen pribadi manakah yang paling mencerminkan pengamalan sejarah perumusan Pancasila?",
+                opsi: [
+                    "Menggunakan media sosial untuk menyebarkan informasi tanpa menyaring kebenarannya",
+                    "Menjunjung tinggi etika berinternet, menghargai keberagaman pendapat, dan menolak hoaks yang memecah belah bangsa",
+                    "Menjauhi pergaulan dengan teman yang berbeda suku dan agama",
+                    "Fokus belajar saja tanpa peduli pada masalah sosial sekitar"
+                ],
+                kunci: 1,
+                level: "C6 (Menciptakan)",
+                pembahasan: "Pengamalan semangat Pancasila di era digital diwujudkan dengan menjaga persatuan, toleransi, serta menggunakan teknologi secara bijak."
+            }
+        ];
+
+        /* ==========================================================================
+           4. ROUTING & NAVIGATION SYSTEM
+           ========================================================================== */
+        
+        let currentMisiIndex = 0;
+        let currentEvalIndex = 0;
+
+        function navigate(targetId) {
+            playSound('click');
+            const pages = ['halaman-pembuka', 'halaman-peta', 'halaman-detail-misi', 'halaman-tokoh', 'halaman-game', 'halaman-evaluasi', 'halaman-hasil'];
+            pages.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) targetEl.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Specific Page Setup Trigger
+            if (targetId === 'halaman-peta') {
+                renderPetaMisi();
+            } else if (targetId === 'halaman-tokoh') {
+                renderGaleriTokoh();
+            } else if (targetId === 'halaman-game') {
+                initGameArena();
+            } else if (targetId === 'halaman-evaluasi') {
+                initEvaluasi();
+            } else if (targetId === 'halaman-hasil') {
+                renderHasilBelajar();
+            }
+        }
+
+        function mulaiPetualangan() {
+            const inputNama = document.getElementById('input-nama').value.trim();
+            if (!inputNama) {
+                alert("Silakan masukkan namamu terlebih dahulu untuk memulai petualangan!");
+                return;
+            }
+            appState.userName = inputNama;
+            saveProgress();
+            updateUserUI();
+            navigate('halaman-peta');
+        }
+
+        function updateUserUI() {
+            document.getElementById('nav-user-name').innerText = appState.userName;
+            document.getElementById('user-badge').classList.remove('hidden');
+            document.getElementById('progress-badge').classList.remove('hidden');
+            
+            const count = appState.completedMissions.length;
+            document.getElementById('nav-progress-text').innerText = `${count}/6`;
+            
+            const percent = Math.round((count / 6) * 100);
+            document.getElementById('global-progress-bar').style.width = `${percent}%`;
+            
+            const mapPercent = document.getElementById('map-progress-percent');
+            if (mapPercent) mapPercent.innerText = `${percent}%`;
+        }
+
+        /* ==========================================================================
+           5. RENDER PETA MISI & DETAIL MISI
+           ========================================================================== */
+        
+        function renderPetaMisi() {
+            const container = document.getElementById('misi-cards-container');
+            container.innerHTML = "";
+
+            dataMisi.forEach((misi, idx) => {
+                const isCompleted = appState.completedMissions.includes(idx);
+                const isUnlocked = idx === 0 || appState.completedMissions.includes(idx - 1);
+
+                const card = document.createElement('div');
+                card.className = `rounded-3xl p-6 border transition-all duration-300 relative flex flex-col justify-between ${
+                    isCompleted 
+                        ? 'bg-emerald-50/70 border-emerald-300 shadow-sm hover:shadow-md' 
+                        : isUnlocked 
+                            ? 'bg-white border-amber-300 shadow-md hover:shadow-xl hover:-translate-y-1 pulse-gold' 
+                            : 'bg-slate-100 border-slate-200 opacity-60 grayscale cursor-not-allowed'
+                }`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="w-10 h-10 rounded-2xl ${
+                                isCompleted ? 'bg-emerald-600 text-white' : isUnlocked ? 'bg-amber-500 text-white' : 'bg-slate-300 text-slate-600'
+                            } flex items-center justify-center font-black text-sm shadow">
+                                ${misi.id}
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[11px] font-bold ${
+                                isCompleted ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : isUnlocked ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-slate-200 text-slate-600'
+                            }">
+                                ${isCompleted ? '<i class="fa-solid fa-check"></i> Selesai' : isUnlocked ? 'Terbuka' : '<i class="fa-solid fa-lock"></i> Terkunci'}
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-800 text-lg leading-snug mb-2">${misi.judul}</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">${misi.deskripsi}</p>
+                    </div>
+
+                    <button onclick="${isUnlocked ? `bukaDetailMisi(${idx})` : `alert('Selesaikan misi sebelumnya terlebih dahulu!')`}" 
+                        class="w-full py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 ${
+                            isCompleted ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow' : isUnlocked ? 'bg-gradient-to-r from-merah to-amber-500 hover:opacity-90 text-white shadow-md' : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                        }">
+                        <span>${isCompleted ? 'Tinjau Ulang Misi' : isUnlocked ? 'Masuk Misi Ini' : 'Terkunci'}</span>
+                        <i class="fa-solid ${isUnlocked ? 'fa-arrow-right' : 'fa-lock'}"></i>
+                    </button>
+                `;
+
+                container.appendChild(card);
+            });
+            updateUserUI();
+        }
+
+        function bukaDetailMisi(misiIdx) {
+            playSound('click');
+            currentMisiIndex = misiIdx;
+            const data = dataMisi[misiIdx];
+
+            document.getElementById('misi-step-badge').innerText = `Misi ${data.id} dari 6`;
+            document.getElementById('misi-judul').innerText = data.judul;
+            document.getElementById('misi-subjudul').innerText = data.subjudul;
+
+            // Render Tab 1 (Materi)
+            document.getElementById('tab-content-materi').innerHTML = data.materiHTML;
+
+            // Render Tab 2 (Aktivitas)
+            document.getElementById('tab-content-aktivitas').innerHTML = data.aktivitasHTML;
+
+            // Render Tab 3 (Kuis Misi)
+            const kuisBox = document.getElementById('kuis-misi-container');
+            kuisBox.innerHTML = "";
+            data.kuis.forEach((q, qIdx) => {
+                const qEl = document.createElement('div');
+                qEl.className = "bg-white p-4 rounded-2xl border border-slate-200 space-y-3";
+                qEl.innerHTML = `
+                    <p class="font-bold text-xs text-slate-800">${qIdx + 1}. ${q.soal}</p>
+                    <div class="space-y-2">
+                        ${q.opsi.map((opt, oIdx) => `
+                            <button onclick="jawabKuisMisi(${qIdx}, ${oIdx}, ${q.kunci}, this)" class="w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition font-medium">
+                                ${String.fromCharCode(65 + oIdx)}. ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="kuis-feedback-${qIdx}" class="hidden p-3 rounded-xl text-xs font-semibold leading-relaxed"></div>
+                `;
+                kuisBox.appendChild(qEl);
+            });
+
+            // Update Status Footer
+            const isDone = appState.completedMissions.includes(misiIdx);
+            document.getElementById('misi-status-text').innerText = isDone ? "Telah Diselesaikan" : "Belum Selesai";
+            document.getElementById('misi-status-icon').className = `w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+                isDone ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-200 text-slate-500'
+            }`;
+            document.getElementById('misi-status-icon').innerHTML = isDone ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-hourglass-start"></i>';
+
+            switchMisiTab('materi');
+            navigate('halaman-detail-misi');
+        }
+
+        function switchMisiTab(tabName) {
+            playSound('click');
+            ['materi', 'aktivitas', 'kuis'].forEach(t => {
+                document.getElementById(`tab-content-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = "py-3 px-4 font-bold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap";
+            });
+
+            document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabName}`).className = "py-3 px-4 font-bold text-sm border-b-2 border-merah text-merah flex items-center gap-2 whitespace-nowrap";
+        }
+
+        function jawabKuisMisi(qIdx, chosenOpt, correctOpt, btnEl) {
+            const feedbackEl = document.getElementById(`kuis-feedback-${qIdx}`);
+            feedbackEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'bg-red-100', 'text-red-900');
+
+            const parent = btnEl.parentElement;
+            Array.from(parent.children).forEach(child => {
+                child.disabled = true;
+                child.classList.remove('bg-emerald-50', 'border-emerald-500', 'bg-red-50', 'border-red-500');
+            });
+
+            const kuisData = dataMisi[currentMisiIndex].kuis[qIdx];
+
+            if (chosenOpt === correctOpt) {
+                playSound('correct');
+                btnEl.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                feedbackEl.classList.add('bg-emerald-100', 'text-emerald-900');
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <strong>Benar!</strong> ${kuisData.pembahasan}`;
+            } else {
+                playSound('wrong');
+                btnEl.classList.add('bg-red-50', 'border-red-500', 'text-red-900');
+                feedbackEl.classList.add('bg-red-100', 'text-red-900');
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 mr-1"></i> <strong>Kurang Tepat.</strong> ${kuisData.pembahasan}`;
+            }
+        }
+
+        function tandaiMisiSelesai() {
+            playSound('correct');
+            if (!appState.completedMissions.includes(currentMisiIndex)) {
+                appState.completedMissions.push(currentMisiIndex);
+                saveProgress();
+            }
+            alert(`Selamat! Misi ${currentMisiIndex + 1} berhasil diselesaikan!`);
+            navigate('halaman-peta');
+        }
+
+        // Custom Misi Activities Logic
+        function cekAktivitasMisi1() {
+            const v1 = document.getElementById('target-misi1-1').value;
+            const v2 = document.getElementById('target-misi1-2').value;
+            const v3 = document.getElementById('target-misi1-3').value;
+
+            if (v1 === 'Ketua' && v2 === 'WakilJepang' && v3 === 'WakilIndo') {
+                playSound('correct');
+                alert("Luar Biasa! Jawaban struktur BPUPKI kamu 100% Benar!");
+            } else {
+                playSound('wrong');
+                alert("Masih ada jabatan yang tertukar. Ingat: Radjiman = Ketua, Ichibangase = Wakil Jepang, RP Soeroso = Wakil Indonesia.");
+            }
+        }
+
+        function tampilPidato(tokoh) {
+            playSound('click');
+            const pidatoBox = document.getElementById('pidato-box');
+            if (tokoh === 'yamin') {
+                pidatoBox.innerHTML = `<strong>Muhammad Yamin (29 Mei 1945):</strong><br/>"Indonesia merdeka harus berdiri di atas 5 dasar asas: Peri Kebangsaan, Peri Kemanusiaan, Peri Ketuhanan, Peri Kerakyatan, dan Kesejahteraan Rakyat."`;
+            } else if (tokoh === 'soepomo') {
+                pidatoBox.innerHTML = `<strong>Mr. Soepomo (31 Mei 1945):</strong><br/>"Negara Indonesia yang kita dirikan adalah Negara Integralistik (Kekeluargaan), bersatu dengan seluruh rakyatnya tanpa membeda-bedakan golongan."`;
+            } else if (tokoh === 'soekarno') {
+                pidatoBox.innerHTML = `<strong>Ir. Soekarno (1 Juni 1945):</strong><br/>"Prinsip dasar negara ini saya namakan PANCASILA. Lima asas yang menyatu mendasari Indonesia Merdeka."`;
+            }
+        }
+
+        function cekGagasan(btn, tokoh) {
+            playSound('correct');
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> ${tokoh}`;
+            btn.className = "px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg";
+        }
+
+        /* ==========================================================================
+           6. GALERI TOKOH SEJARAH
+           ========================================================================== */
+        
+        function renderGaleriTokoh() {
+            const container = document.getElementById('tokoh-grid-container');
+            container.innerHTML = "";
+
+            dataTokoh.forEach(tokoh => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-xl transition";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="bg-gradient-to-r ${tokoh.bg} text-white p-5">
+                            <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-2xl font-black mb-2 border border-white/30 backdrop-blur">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <h3 class="font-extrabold text-xl leading-tight">${tokoh.nama}</h3>
+                            <p class="text-xs text-slate-100 opacity-90 mt-1">${tokoh.peran}</p>
+                        </div>
+                        <div class="p-5 space-y-3 text-xs">
+                            <div>
+                                <span class="font-bold text-slate-700 block mb-0.5"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Gagasan Utama:</span>
+                                <p class="text-slate-600 leading-relaxed">${tokoh.gagasan}</p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-slate-700 block mb-0.5"><i class="fa-solid fa-award text-blue-600 mr-1"></i> Kontribusi Sejarah:</span>
+                                <p class="text-slate-600 leading-relaxed">${tokoh.kontribusi}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        /* ==========================================================================
+           7. MINI GAMES (KRONOLOGI & TEBAK TOKOH)
+           ========================================================================== */
+        
+        const gameKronologiData = [
+            { id: 1, text: "Sidang Pertama BPUPKI (29 Mei–1 Juni 1945)" },
+            { id: 2, text: "Perumusan Piagam Jakarta oleh Panitia Sembilan (22 Juni 1945)" },
+            { id: 3, text: "Sidang Kedua BPUPKI (10–17 Juli 1945)" },
+            { id: 4, text: "Pembubaran BPUPKI & Pembentukan PPKI (7 Agustus 1945)" },
+            { id: 5, text: "Proklamasi Kemerdekaan Indonesia (17 Agustus 1945)" },
+            { id: 6, text: "Sidang PPKI Mengesahkan UUD 1945 & Pancasila (18 Agustus 1945)" }
+        ];
+
+        let userGameOrder = [];
+
+        function switchGameMode(mode) {
+            playSound('click');
+            document.getElementById('game-tab-kronologi').className = mode === 'kronologi' ? "px-4 py-2.5 bg-merah text-white font-bold text-sm rounded-xl shadow" : "px-4 py-2.5 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 font-bold text-sm rounded-xl";
+            document.getElementById('game-tab-tebak').className = mode === 'tebak-tokoh' ? "px-4 py-2.5 bg-merah text-white font-bold text-sm rounded-xl shadow" : "px-4 py-2.5 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 font-bold text-sm rounded-xl";
+
+            if (mode === 'kronologi') {
+                renderGameKronologi();
+            } else {
+                renderGameTebakTokoh();
+            }
+        }
+
+        function initGameArena() {
+            switchGameMode('kronologi');
+        }
+
+        function renderGameKronologi() {
+            userGameOrder = [...gameKronologiData].sort(() => Math.random() - 0.5);
+            const arena = document.getElementById('game-arena');
+            
+            arena.innerHTML = `
+                <div class="space-y-4">
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 text-amber-900 text-xs">
+                        <strong><i class="fa-solid fa-hand-pointer mr-1"></i> Cara Bermain:</strong> Klik dua item peristiwa untuk menukar posisinya hingga urutan dari atas ke bawah runtut secara kronologis (1945)!
+                    </div>
+
+                    <div id="kronologi-list" class="space-y-2">
+                        <!-- Injected JS -->
+                    </div>
+
+                    <button onclick="cekUrutanKronologi()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition">
+                        <i class="fa-solid fa-check-circle mr-1"></i> Periksa Urutan Kronologi
+                    </button>
+                </div>
+            `;
+            updateKronologiUI();
+        }
+
+        let selectedIdxForSwap = null;
+
+        function updateKronologiUI() {
+            const listContainer = document.getElementById('kronologi-list');
+            listContainer.innerHTML = "";
+
+            userGameOrder.forEach((item, idx) => {
+                const row = document.createElement('div');
+                row.className = `p-3.5 rounded-xl border font-bold text-xs flex justify-between items-center cursor-pointer transition ${
+                    selectedIdxForSwap === idx ? 'bg-amber-100 border-amber-500 ring-2 ring-amber-300' : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
+                }`;
+                row.onclick = () => handleSwapItem(idx);
+
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 bg-slate-200 text-slate-700 rounded-lg flex items-center justify-center text-xs font-black">${idx + 1}</span>
+                        <span>${item.text}</span>
+                    </div>
+                    <span class="text-xs text-slate-400"><i class="fa-solid fa-up-down"></i> Swap</span>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        function handleSwapItem(idx) {
+            playSound('click');
+            if (selectedIdxForSwap === null) {
+                selectedIdxForSwap = idx;
+            } else {
+                // Swap
+                const temp = userGameOrder[selectedIdxForSwap];
+                userGameOrder[selectedIdxForSwap] = userGameOrder[idx];
+                userGameOrder[idx] = temp;
+                selectedIdxForSwap = null;
+            }
+            updateKronologiUI();
+        }
+
+        function cekUrutanKronologi() {
+            let isCorrect = true;
+            for (let i = 0; i < userGameOrder.length; i++) {
+                if (userGameOrder[i].id !== i + 1) {
+                    isCorrect = false;
+                    break;
+                }
+            }
+
+            if (isCorrect) {
+                playSound('correct');
+                alert("HEBAT! Kamu berhasil mengurutkan seluruh peristiwa sejarah perumusan Pancasila secara sempurna!");
+            } else {
+                playSound('wrong');
+                alert("Urutan belum tepat. Coba periksa kembali urutan tanggal dan bulan peristiwanya!");
+            }
+        }
+
+        function renderGameTebakTokoh() {
+            const arena = document.getElementById('game-arena');
+            arena.innerHTML = `
+                <div class="space-y-4 text-xs">
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200 text-blue-900">
+                        <strong><i class="fa-solid fa-puzzle-piece mr-1"></i> Tebak Tokoh Sejarah:</strong> Baca petunjuk di bawah ini dan pilih nama tokoh yang sesuai!
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 font-semibold text-amber-900 leading-relaxed">
+                            "Saya adalah Ketua BPUPKI yang mengajukan pertanyaan kunci mengenai apa yang menjadi dasar negara Indonesia Merdeka dalam sidang pertama."
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="jawabTebak(this, false)" class="p-3 bg-slate-100 hover:bg-slate-200 font-bold rounded-xl text-slate-700">Ir. Soekarno</button>
+                            <button onclick="jawabTebak(this, true)" class="p-3 bg-slate-100 hover:bg-slate-200 font-bold rounded-xl text-slate-700">Dr. K.R.T. Radjiman Wedyodiningrat</button>
+                            <button onclick="jawabTebak(this, false)" class="p-3 bg-slate-100 hover:bg-slate-200 font-bold rounded-xl text-slate-700">Mr. Muhammad Yamin</button>
+                            <button onclick="jawabTebak(this, false)" class="p-3 bg-slate-100 hover:bg-slate-200 font-bold rounded-xl text-slate-700">Drs. Mohammad Hatta</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function jawabTebak(btn, isCorrect) {
+            if (isCorrect) {
+                playSound('correct');
+                btn.className = "p-3 bg-emerald-600 text-white font-bold rounded-xl";
+                alert("Tepat Sekali! Dr. K.R.T. Radjiman Wedyodiningrat adalah Ketua BPUPKI.");
+            } else {
+                playSound('wrong');
+                btn.className = "p-3 bg-red-600 text-white font-bold rounded-xl";
+                alert("Jawaban belum tepat. Coba lagi!");
+            }
+        }
+
+        /* ==========================================================================
+           8. EVALUASI PEMBELAJARAN HOTS LOGIC
+           ========================================================================== */
+        
+        function initEvaluasi() {
+            currentEvalIndex = 0;
+            renderEvalQuestion();
+        }
+
+        function renderEvalQuestion() {
+            const data = dataEvaluasiHOTS[currentEvalIndex];
+            
+            document.getElementById('eval-question-number').innerText = `Soal ${currentEvalIndex + 1} dari 15`;
+            document.getElementById('eval-cognitive-level').innerText = `Tingkat Kognitif: ${data.level}`;
+
+            const stimBox = document.getElementById('eval-stimulus-box');
+            if (data.stimulus) {
+                stimBox.classList.remove('hidden');
+                stimBox.innerText = `Stimulus: "${data.stimulus}"`;
+            } else {
+                stimBox.classList.add('hidden');
+            }
+
+            document.getElementById('eval-question-text').innerText = data.soal;
+
+            const optsContainer = document.getElementById('eval-options-container');
+            optsContainer.innerHTML = "";
+
+            data.opsi.forEach((optText, oIdx) => {
+                const isSelected = appState.evalAnswers[currentEvalIndex] === oIdx;
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-2xl border-2 transition font-medium text-xs md:text-sm flex items-center justify-between ${
+                    isSelected ? 'bg-amber-50 border-amber-500 text-amber-950 font-bold shadow' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'
+                }`;
+                btn.onclick = () => chooseEvalOption(oIdx);
+                
+                btn.innerHTML = `
+                    <span>${String.fromCharCode(65 + oIdx)}. ${optText}</span>
+                    ${isSelected ? '<i class="fa-solid fa-circle-check text-amber-500 text-lg"></i>' : '<i class="fa-regular fa-circle text-slate-300 text-lg"></i>'}
+                `;
+                optsContainer.appendChild(btn);
+            });
+
+            // Navigation Buttons Control
+            document.getElementById('btn-eval-prev').disabled = currentEvalIndex === 0;
+            if (currentEvalIndex === dataEvaluasiHOTS.length - 1) {
+                document.getElementById('btn-eval-next').classList.add('hidden');
+                document.getElementById('btn-eval-submit').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-eval-next').classList.remove('hidden');
+                document.getElementById('btn-eval-submit').classList.add('hidden');
+            }
+        }
+
+        function chooseEvalOption(oIdx) {
+            playSound('click');
+            appState.evalAnswers[currentEvalIndex] = oIdx;
+            renderEvalQuestion();
+        }
+
+        function navEvalQuestion(dir) {
+            playSound('click');
+            currentEvalIndex += dir;
+            renderEvalQuestion();
+        }
+
+        function submitEvaluasi() {
+            playSound('click');
+            const answeredCount = Object.keys(appState.evalAnswers).length;
+            if (answeredCount < dataEvaluasiHOTS.length) {
+                if (!confirm(`Kamu baru menjawab ${answeredCount} dari 15 soal. Yakin ingin mengumpulkan evaluasi?`)) {
+                    return;
+                }
+            }
+
+            // Hitung Nilai
+            let correctCount = 0;
+            dataEvaluasiHOTS.forEach((q, idx) => {
+                if (appState.evalAnswers[idx] === q.kunci) {
+                    correctCount++;
+                }
+            });
+
+            appState.evalScore = Math.round((correctCount / dataEvaluasiHOTS.length) * 100);
+            saveProgress();
+            navigate('halaman-hasil');
+        }
+
+        /* ==========================================================================
+           9. HALAMAN HASIL BELAJAR & SERTIFIKAT
+           ========================================================================== */
+        
+        function renderHasilBelajar() {
+            const name = appState.userName;
+            const score = appState.evalScore;
+            const percent = score;
+
+            document.getElementById('result-user-name').innerText = name;
+            document.getElementById('result-eval-score').innerText = `${score} / 100`;
+            document.getElementById('result-correct-percent').innerText = `${percent}%`;
+
+            let category = "";
+            let feedback = "";
+            let certPredicate = "";
+
+            if (score >= 85) {
+                category = "Sangat Baik (Master Sejarah)";
+                certPredicate = "SANGAT MEMUASKAN (CUM LAUDE)";
+                feedback = `Luar Biasa, ${name}! Kamu memiliki pemahaman kognitif HOTS yang sangat tajam mengenai analisis sejarah perumusan dan penetapan Pancasila. Kamu mampu memahami semangat kompromi dan jiwa besar para perumus bangsa!`;
+            } else if (score >= 70) {
+                category = "Baik (Penjelajah Handal)";
+                certPredicate = "MEMUASKAN";
+                feedback = `Bagus Sekali, ${name}! Pemahamanmu tentang sejarah lahirnya Pancasila sudah cukup solid. Pelajari kembali detail perbandingan gagasan tiga tokoh untuk memperdalam wawasanmu.`;
+            } else {
+                category = "Cukup (Penjelajah Pemula)";
+                certPredicate = "LULUS EVALUASI";
+                feedback = `Tetap Semangat, ${name}! Jangan berkecil hati. Kamu dapat membuka kembali 6 Misi Sejarah pada Peta Petualangan untuk mengulas materi dan mengulang evaluasi ini.`;
+            }
+
+            document.getElementById('result-category').innerText = category;
+            document.getElementById('result-feedback-box').innerHTML = `<strong><i class="fa-solid fa-comment-dots mr-1"></i> Umpan Balik Pembelajaran:</strong><br/>${feedback}`;
+
+            // Certificate Render Data
+            document.getElementById('cert-user-name').innerText = name.toUpperCase();
+            document.getElementById('cert-predicate').innerText = certPredicate;
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Render Pembahasan Items
+            renderPembahasan();
+        }
+
+        function renderPembahasan() {
+            const container = document.getElementById('pembahasan-container');
+            container.innerHTML = "";
+
+            dataEvaluasiHOTS.forEach((q, idx) => {
+                const userChoice = appState.evalAnswers[idx];
+                const isCorrect = userChoice === q.kunci;
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border text-xs space-y-2 ${
+                    isCorrect ? 'bg-emerald-50/60 border-emerald-300' : 'bg-red-50/60 border-red-300'
+                }`;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center font-bold">
+                        <span class="${isCorrect ? 'text-emerald-800' : 'text-red-800'}">Soal ${idx + 1} (${q.level})</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] ${isCorrect ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}">
+                            ${isCorrect ? 'Jawaban Benar' : 'Jawaban Salah'}
+                        </span>
+                    </div>
+                    <p class="font-semibold text-slate-800">${q.soal}</p>
+                    <div class="text-slate-600 space-y-1">
+                        <div>Jawabanmu: <strong class="${isCorrect ? 'text-emerald-700' : 'text-red-700'}">${userChoice !== undefined ? String.fromCharCode(65 + userChoice) + '. ' + q.opsi[userChoice] : 'Tidak dijawab'}</strong></div>
+                        <div>Kunci Jawaban: <strong class="text-emerald-700">${String.fromCharCode(65 + q.kunci)}. ${q.opsi[q.kunci]}</strong></div>
+                    </div>
+                    <div class="p-3 bg-white/80 rounded-xl border border-slate-200 text-slate-700 italic">
+                        <strong>Pembahasan:</strong> ${q.pembahasan}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function togglePembahasan() {
+            playSound('click');
+            const sec = document.getElementById('pembahasan-section');
+            sec.classList.toggle('hidden');
+            if (!sec.classList.contains('hidden')) {
+                sec.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        /* ==========================================================================
+           10. LOCALSTORAGE PROGRESS SYSTEM & RESET
+           ========================================================================== */
+        
+        function saveProgress() {
+            try {
+                localStorage.setItem('pancasila_app_state', JSON.stringify(appState));
+            } catch(e) {}
+        }
+
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem('pancasila_app_state');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    appState = { ...appState, ...parsed };
+                    if (appState.userName && appState.userName !== "Penjelajah") {
+                        document.getElementById('input-nama').value = appState.userName;
+                        updateUserUI();
+                    }
+                }
+            } catch(e) {}
+        }
+
+        function confirmReset() {
+            if (confirm("Apakah kamu yakin ingin mereset seluruh progres petualangan sejarah ini?")) {
+                localStorage.removeItem('pancasila_app_state');
+                appState.completedMissions = [];
+                appState.evalAnswers = {};
+                appState.evalScore = 0;
+                location.reload();
+            }
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            loadProgress();
+            // Start at Halaman Pembuka
+            navigate('halaman-pembuka');
+        };
+    </script>
+</body>
+</html>
